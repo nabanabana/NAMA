@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vote</title>
+</head>
+<body>
+    <h1>Guess the uploader</h1>
+
+    <img src="{{ image_file }}" alt="Randomly selected image" width="200">
+
+    <form action="{{ url_for('voting', image_file=image_file.split('/')[-1]) }}" method="post">
+        <label>Select who you think uploaded the image:</label>
+        <select name="vote">
+            {% for user in users %}
+            <option value="{{ user }}">{{ user }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+
+    {% if message %}
+    <div>
+        <h2>{{ message }}</h2>
+    </div>
+    {% endif %}
+
+    {% if all_images %}
+    <div>
+        {% for img in all_images %}
+        <img src="{{ img }}" alt="Uploaded Image" width="200">
+        {% endfor %}
+    </div>
+    {% elif wrong_guessed_image %}
+    <div>
+        <h3>Incorrectly guessed image:</h3>
+        <img src="{{ wrong_guessed_image }}" alt="Wrong Guessed Image" width="200">
+    </div>
+    {% endif %}
+
+    <!-- ... [rest of the code] ... -->
+</body>
+</html>

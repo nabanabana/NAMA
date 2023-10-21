@@ -1,0 +1,41 @@
+
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mt-5">Upload an image</h2>
+    <form action="/" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="group_name" class="form-label">Group Name</label>
+            <input type="text" class="form-control" id="group_name" name="group_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="user_name" class="form-label">User Name</label>
+            <input type="text" class="form-control" id="user_name" name="user_name" required>
+<label for="max_participants">Maximum Participants:</label>
+<input type="number" name="max_participants" required><br><br>
+
+        </div>
+        <div class="mb-3">
+            <label for="file" class="form-label">Choose an image</label>
+            <input type="file" class="form-control" id="file" name="file" accept="image/*" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+    <div class="message">{{ message }}</div>
+</form>
+<p id='waiting-message' style='display:none;'>他のユーザーのアップロードを待っています...</p>
+    
+    {% if uploaded_image %}
+    <div class="mt-5">
+        <h4>Your uploaded image:</h4>
+        <img src="{{ uploaded_image }}" alt="Uploaded Image" class="img-thumbnail" width="300">
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+<script>
+    document.querySelector('form').addEventListener('submit', function() {
+        document.getElementById('waiting-message').style.display = 'block';
+    });
+</script>

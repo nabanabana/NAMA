@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h3 class="text-center">待機中...</h3>
+    <p class="text-center">他の参加者を待っています。しばらくお待ちください。</p>
+</div>
+
+<script>
+    // サーバーを5秒ごとにポーリングしてゲームの開始を確認
+    setInterval(function() {
+        fetch('/check_game_start')
+        .then(response => response.text())
+        .then(status => {
+            if (status === "started") {
+                // ゲームが開始された場合、投票ページにリダイレクト
+                window.location.href = "/voting";
+            }
+        });
+    }, 5000);
+</script>
+{% endblock %}
